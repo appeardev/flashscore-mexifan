@@ -6,6 +6,15 @@ export const openPageAndNavigate = async (context, url) => {
   return page;
 };
 
+export const dismissConsent = async (page) => {
+  try {
+    await page.click("#onetrust-accept-btn-handler", { timeout: 3000 });
+  } catch {
+    // consent already dismissed or not present
+  }
+  await page.waitForTimeout(1000);
+};
+
 export const waitAndClick = async (page, selector, timeout = TIMEOUT) => {
   await page.waitForSelector(selector, { timeout });
   await page.evaluate(async (selector) => {

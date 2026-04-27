@@ -4,7 +4,9 @@
   "description": "A scraping tool for retrieving football data.",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "scrape:liga-mx": "node src/liga-mx.js",
+    "scrape:liga-mx:lineups": "node src/liga-mx.js --lineups-only"
   },
   "dependencies": {
     "chalk": "^5.6.2",
