@@ -8,9 +8,11 @@ import { dismissConsent } from "./scraper/index.js";
 import { getMatchData } from "./scraper/services/matches/index.js";
 import { getLineupsAndBench } from "./scraper/services/lineups/index.js";
 
-const LIGA_MX_RESULTS_URL = "https://www.flashscore.com/football/mexico/liga-mx/results/";
-const LIGA_MX_FIXTURES_URL = "https://www.flashscore.com/football/mexico/liga-mx/fixtures/";
-const OUTPUT_DIR = path.resolve("./data/liga-mx");
+const SEASON_SLUG = process.env.SEASON_SLUG || "liga-mx";
+const SEASON_LABEL = process.env.SEASON_LABEL || "current";
+const LIGA_MX_RESULTS_URL = `https://www.flashscore.com/football/mexico/${SEASON_SLUG}/results/`;
+const LIGA_MX_FIXTURES_URL = `https://www.flashscore.com/football/mexico/${SEASON_SLUG}/fixtures/`;
+const OUTPUT_DIR = path.resolve(`./data/liga-mx/${SEASON_LABEL}`);
 const USER_AGENT =
   "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
@@ -121,7 +123,7 @@ const main = async () => {
     console.log("");
 
     const stamp = new Date().toISOString().slice(0, 10);
-    const outFile = path.join(OUTPUT_DIR, `clausura-2026-${stamp}.json`);
+    const outFile = path.join(OUTPUT_DIR, `${SEASON_LABEL}-${stamp}.json`);
     const latestFile = path.join(OUTPUT_DIR, "latest.json");
     fs.writeFileSync(outFile, JSON.stringify(data, null, 2));
     fs.writeFileSync(latestFile, JSON.stringify(data, null, 2));
