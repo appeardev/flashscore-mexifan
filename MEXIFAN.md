@@ -57,6 +57,26 @@ Salida (un objeto por partido):
 - `--results-only` — solo partidos jugados, no fixtures futuros
 - `CONCURRENCY=N npm run scrape:liga-mx` — partidos en paralelo (default 3)
 
+## Multi-temporada (histórico)
+
+```bash
+SEASON_SLUG=liga-mx-2024-2025 SEASON_LABEL=2024-2025 node src/liga-mx.js --results-only
+# o todas las temporadas configuradas:
+bash src/scrape-history.sh
+```
+
+Output: `data/liga-mx/<label>/<label>-YYYY-MM-DD.json`
+
+## Cron semanal en macOS (launchd)
+
+```bash
+bash launchd/install.sh
+```
+
+Carga `~/Library/LaunchAgents/com.appeardev.flashscore-liga-mx.plist`. Corre cada lunes 9:00am hora local. Logs en `~/Library/Logs/flashscore-liga-mx.log`.
+
+Uninstall: `launchctl unload ~/Library/LaunchAgents/com.appeardev.flashscore-liga-mx.plist && rm ~/Library/LaunchAgents/com.appeardev.flashscore-liga-mx.plist`
+
 ## Por qué Flashscore y no SofaScore / Understat
 
 - Flashscore sí publica alineaciones titulares + banca + DT por partido. SofaScore y Understat tienen mejores stats avanzadas (xG, key passes) pero no la banca.
